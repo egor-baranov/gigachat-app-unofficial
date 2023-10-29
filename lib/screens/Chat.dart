@@ -370,7 +370,7 @@ class _ChatState extends State<Chat> {
                   foregroundColor: MaterialStateProperty.all(Colors.white),
                   backgroundColor: MaterialStateProperty.all(Colors.black),
                 ),
-                onPressed: () async {
+                onPressed: () {
                   if (_inputController.text.isEmpty) {
                     return;
                   }

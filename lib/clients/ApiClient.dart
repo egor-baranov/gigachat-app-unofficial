@@ -91,7 +91,6 @@ class ApiClient {
         .transform(const LineSplitter())
         .listen(
       (event) {
-        print("event is: $event");
         if (event.contains("[DONE]") ||
             !event.replaceFirst("data: ", "").trim().startsWith("{")) {
           return;
@@ -100,8 +99,6 @@ class ApiClient {
         var content =
             jsonDecode(event.replaceFirst("data: ", "").trim())["choices"][0]
                 ["delta"]["content"] as String;
-
-        print("content: $content, size: ${content.length}");
 
         onFetch(
           Message(
@@ -112,49 +109,5 @@ class ApiClient {
         );
       },
     );
-  }
-
-  static Future<void> old(List<Message> context) async {
-    client.badCertificateCallback =
-        ((X509Certificate cert, String host, int port) => true);
-
-    final httpClient = IOClient(client);
-    var url = Uri.https(
-      'gigachat.devices.sberbank.ru',
-      'api/v1/chat/completions',
-    );
-
-    var messageId = context.last.id + 1;
-    httpClient
-        .post(
-          url,
-          headers: {
-            "Authorization": "Bearer ${await fetchToken()}",
-            "X-Client-ID": "91e5d811-44b4-4fa5-bfd4-ed7245e5e8d1",
-            "X-Request-ID": "79e41a5f-f180-4c7a-b2d9-393086ae20a1",
-            "X-Session-ID": "b6874da0-bf06-410b-a150-fd5f9164a0b2",
-            "Content-Type": "application/json",
-            "Cache-Control": "no-cache",
-            "Accept": "text/event-stream"
-          },
-          body: jsonEncode(
-            {
-              "model": "GigaChat:latest",
-              "stream": true,
-              "messages": context
-                  .map(
-                    (e) => {
-                      "role": e.sentByUser ? "user" : "assistant",
-                      "content": e.text,
-                    },
-                  )
-                  .toList()
-            },
-          ),
-        )
-        .asStream()
-        .listen(
-          (event) {},
-        );
   }
 }

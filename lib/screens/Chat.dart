@@ -309,7 +309,7 @@ class _ChatState extends State<Chat> {
                 text,
                 softWrap: true,
                 style: const TextStyle(color: Colors.white),
-                maxLines: 40,
+                maxLines: 1000,
               ),
             ],
           ),

@@ -1,0 +1,111 @@
+name: gigachat_app_unofficial
+description: A new Flutter project.
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.6 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  flutter_svg: ^2.0.7
+  http: ^1.1.0
+  cupertino_icons: ^1.0.2
+  uuid: ^4.0.0
+  dio: ^5.3.3
+  modal_bottom_sheet: ^3.0.0-pre
+  flutter_client_sse: ^2.0.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^2.0.0
+
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+    - assets/icons/Solar/Bold/Arrows/
+    - assets/icons/Solar/Bold/Arrows Action/
+    - assets/icons/Solar/Bold/Astronomy/
+    - assets/icons/Solar/Bold/Building, Infrastructure/
+    - assets/icons/Solar/Bold/Business, Statistic/
+    - assets/icons/Solar/Bold/Call/
+    - assets/icons/Solar/Bold/Design, Tools/
+    - assets/icons/Solar/Bold/Electronic, Devices/
+    - assets/icons/Solar/Bold/Essentional, UI/
+    - assets/icons/Solar/Bold/Faces, Emotions, Stickers/
+    - assets/icons/Solar/Bold/Files/
+    - assets/icons/Solar/Bold/Folders/
+    - assets/icons/Solar/Bold/Food, Kitchen/
+    - assets/icons/Solar/Bold/Hands/
+    - assets/icons/Solar/Bold/Home, Furniture/
+    - assets/icons/Solar/Bold/Like/
+    - assets/icons/Solar/Bold/List/
+    - assets/icons/Solar/Bold/Map & Location/
+    - assets/icons/Solar/Bold/Medicine/
+    - assets/icons/Solar/Bold/Messages, Conversation/
+    - assets/icons/Solar/Bold/Money/
+    - assets/icons/Solar/Bold/Nature, Travel/
+    - assets/icons/Solar/Bold/Network, IT, Programming/
+    - assets/icons/Solar/Bold/Notes/
+    - assets/icons/Solar/Bold/Notifications/
+    - assets/icons/Solar/Bold/School/
+    - assets/icons/Solar/Bold/Search/
+    - assets/icons/Solar/Bold/Security/
+    - assets/icons/Solar/Bold/Settings, Fine Tuning/
+    - assets/icons/Solar/Bold/Shopping, Ecommerce/
+    - assets/icons/Solar/Bold/Sports/
+    - assets/icons/Solar/Bold/Text Formatting/
+    - assets/icons/Solar/Bold/Time/
+    - assets/icons/Solar/Bold/Transport, Parts, Service/
+    - assets/icons/Solar/Bold/Users/
+    - assets/icons/Solar/Bold/Video, Audio, Sound/
+    - assets/icons/Solar/Bold/Weather/
+
+    - assets/icons/Solar/Outline/Arrows/
+    - assets/icons/Solar/Outline/Arrows Action/
+    - assets/icons/Solar/Outline/Astronomy/
+    - assets/icons/Solar/Outline/Business, Statistic/
+    - assets/icons/Solar/Outline/Call/
+    - assets/icons/Solar/Outline/Design, Tools/
+    - assets/icons/Solar/Outline/Electronic, Devices/
+    - assets/icons/Solar/Outline/Essentional, UI/
+    - assets/icons/Solar/Outline/Faces, Emotions, Stickers/
+    - assets/icons/Solar/Outline/Files/
+    - assets/icons/Solar/Outline/Folders/
+    - assets/icons/Solar/Outline/Food, Kitchen/
+    - assets/icons/Solar/Outline/Home, Furniture/
+    - assets/icons/Solar/Outline/Like/
+    - assets/icons/Solar/Outline/List/
+    - assets/icons/Solar/Outline/Map & Location/
+    - assets/icons/Solar/Outline/Medicine/
+    - assets/icons/Solar/Outline/Messages, Conversation/
+    - assets/icons/Solar/Outline/Money/
+    - assets/icons/Solar/Outline/Nature, Travel/
+    - assets/icons/Solar/Outline/Network, IT, Programming/
+    - assets/icons/Solar/Outline/Notes/
+    - assets/icons/Solar/Outline/Notifications/
+    - assets/icons/Solar/Outline/School/
+    - assets/icons/Solar/Outline/Search/
+    - assets/icons/Solar/Outline/Security/
+    - assets/icons/Solar/Outline/Settings, Fine Tuning/
+    - assets/icons/Solar/Outline/Shopping, Ecommerce/
+    - assets/icons/Solar/Outline/Sports/
+    - assets/icons/Solar/Outline/Text Formatting/
+    - assets/icons/Solar/Outline/Time/
+    - assets/icons/Solar/Outline/Users/
+    - assets/icons/Solar/Outline/Video, Audio, Sound/
+    - assets/icons/Solar/Outline/Weather/
+    - assets/icons/apple.svg
+    - assets/icons/google.png
+    - assets/icons/sber.png
+    - assets/icons/gigachat.png
+    - assets/ca/lets-encrypt-r3.pem

@@ -3,11 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:gigachat_app_unofficial/clients/ApiClient.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
+import '../models/Chat.dart';
 import '../models/Message.dart';
 import '../utils/SolarIcons.dart';
 
 class Chat extends StatefulWidget {
-  const Chat({super.key});
+  const Chat({super.key, required this.chat});
+
+  final ChatModel chat;
 
   @override
   State<Chat> createState() => _ChatState();
@@ -18,7 +21,6 @@ class _ChatState extends State<Chat> {
   final _inputController = TextEditingController();
 
   String? token;
-  List<Message> messages = [];
 
   bool _speechEnabled = false;
   String _lastWords = '';
@@ -182,15 +184,20 @@ class _ChatState extends State<Chat> {
   void send(Message message) {
     setState(
       () {
-        if (messages.any((element) => element.id == message.id)) {
-          messages[messages.indexWhere((element) => element.id == message.id)] =
-              Message(
-                id: message.id,
-                text: messages[messages.indexWhere((element) => element.id == message.id)].text + message.text,
-                sentByUser: message.sentByUser
-              );
+        if (widget.chat.history.any((element) => element.id == message.id)) {
+          widget.chat.history[
+              widget.chat.history
+                  .indexWhere((element) => element.id == message.id)] = Message(
+              id: message.id,
+              text: widget
+                      .chat
+                      .history[widget.chat.history
+                          .indexWhere((element) => element.id == message.id)]
+                      .text +
+                  message.text,
+              sentByUser: message.sentByUser);
         } else {
-          messages.add(message);
+          widget.chat.history.add(message);
         }
       },
     );
@@ -377,7 +384,7 @@ class _ChatState extends State<Chat> {
                   String text = _inputController.text;
                   send(
                     Message(
-                      id: messages.length + 1,
+                      id: widget.chat.history.length + 1,
                       text: text,
                       sentByUser: true,
                     ),
@@ -385,9 +392,8 @@ class _ChatState extends State<Chat> {
                   _inputController.clear();
                   _scrollDown(100);
                   ApiClient.sendMessage(
-                    messages,
+                    widget.chat.history,
                     (m) {
-                      print("select: " + m.toString());
                       send(m);
                       _scrollDown(100);
                     },
@@ -416,11 +422,11 @@ class _ChatState extends State<Chat> {
         toolbarHeight: 56,
         title: Stack(
           children: [
-            const Column(
+            Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
-                  "Chat",
+                  widget.chat.name,
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 SizedBox(width: double.infinity),
@@ -460,7 +466,14 @@ class _ChatState extends State<Chat> {
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.end,
             verticalDirection: VerticalDirection.down,
-            children: [...messages.map((e) => message(e.text, e.sentByUser))],
+            children: [
+              ...widget.chat.history.map(
+                (e) => message(
+                  e.text,
+                  e.sentByUser,
+                ),
+              )
+            ],
           ),
         ),
       ),

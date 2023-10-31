@@ -1,10 +1,12 @@
 import 'Message.dart';
 
-class Chat {
+class ChatModel {
+  int id = 0;
   String name = "";
   List<Message> history = [];
 
-  Chat({
+  ChatModel({
+    required this.id,
     required this.name,
     required this.history,
   });

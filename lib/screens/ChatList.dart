@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../models/Chat.dart';
 import '../utils/SolarIcons.dart';
 import 'Chat.dart';
 
@@ -12,6 +13,8 @@ class ChatList extends StatefulWidget {
 }
 
 class _ChatListState extends State<ChatList> {
+  List<ChatModel> chats = [];
+
   Widget searchBox() {
     return Stack(
       children: [
@@ -43,7 +46,7 @@ class _ChatListState extends State<ChatList> {
     );
   }
 
-  Widget chatCard(String text, Widget icon, Function onTap) {
+  Widget chatCard(ChatModel chat) {
     return Material(
       color: CupertinoColors.systemBackground,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
@@ -53,7 +56,7 @@ class _ChatListState extends State<ChatList> {
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (BuildContext context) {
-                return Chat();
+                return Chat(chat: chat);
               },
             ),
           )
@@ -61,7 +64,7 @@ class _ChatListState extends State<ChatList> {
         child: SizedBox(
           width: double.infinity,
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -72,11 +75,11 @@ class _ChatListState extends State<ChatList> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Title",
+                          chat.name,
                           style: TextStyle(fontWeight: FontWeight.w700),
                         ),
                         SizedBox(height: 8),
-                        Text("Description"),
+                        Text(chat.history.first.text.substring(0, 30)),
                       ],
                     ),
                   ],
@@ -137,60 +140,32 @@ class _ChatListState extends State<ChatList> {
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (BuildContext context) {
-                        return Chat();
+                        return Chat(
+                          chat: ChatModel(
+                            id: 0,
+                            name: 'New Chat',
+                            history: [],
+                          ),
+                        );
                       },
                     ),
                   );
                 },
-                child: Text(
+                child: const Text(
                   "+ New Chat",
                   style: TextStyle(fontWeight: FontWeight.w700),
                 ),
               ),
             ),
             SizedBox(height: 8),
-            chatCard(
-              "Параметры",
-              SolarIcons.getOutline("Settings, Fine Tuning/Settings"),
-              () {},
-            ),
-            divider(),
-            chatCard(
-              "Параметры",
-              SolarIcons.getOutline("Settings, Fine Tuning/Settings"),
-              () {},
-            ),
-            divider(),
-            chatCard(
-              "Параметры",
-              SolarIcons.getOutline("Settings, Fine Tuning/Settings"),
-              () {},
-            ),
-            divider(),
-            chatCard(
-              "Параметры",
-              SolarIcons.getOutline("Settings, Fine Tuning/Settings"),
-              () {},
-            ),
-            divider(),
-            chatCard(
-              "Параметры",
-              SolarIcons.getOutline("Settings, Fine Tuning/Settings"),
-              () {},
-            ),
-            divider(),
-            chatCard(
-              "Параметры",
-              SolarIcons.getOutline("Settings, Fine Tuning/Settings"),
-              () {},
-            ),
-            divider(),
-            chatCard(
-              "Параметры",
-              SolarIcons.getOutline("Settings, Fine Tuning/Settings"),
-              () {},
-            ),
-            const SizedBox(height: 32),
+            ...chats.map(
+              (e) => Column(
+                children: [
+                  chatCard(e),
+                  divider(),
+                ],
+              ),
+            )
           ],
         ),
       ),

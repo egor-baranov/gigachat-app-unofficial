@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gigachat_app_unofficial/clients/ApiClient.dart';
+import 'package:gigachat_app_unofficial/providers/StorageProvider.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../models/Chat.dart';
@@ -199,6 +200,8 @@ class _ChatState extends State<Chat> {
         } else {
           widget.chat.history.add(message);
         }
+
+        StorageProvider.saveChat(widget.chat);
       },
     );
   }

@@ -1,5 +1,8 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gigachat_app_unofficial/providers/StorageProvider.dart';
 
 import '../models/Chat.dart';
 import '../utils/SolarIcons.dart';
@@ -79,7 +82,15 @@ class _ChatListState extends State<ChatList> {
                           style: TextStyle(fontWeight: FontWeight.w700),
                         ),
                         SizedBox(height: 8),
-                        Text(chat.history.first.text.substring(0, 30)),
+                        if (chat.history.isNotEmpty)
+                          Text(
+                            chat.history.first.text.substring(
+                              0,
+                              min(chat.history.first.text.length, 30),
+                            ),
+                          )
+                        else
+                          Text(""),
                       ],
                     ),
                   ],
@@ -136,19 +147,18 @@ class _ChatListState extends State<ChatList> {
           children: [
             Center(
               child: GestureDetector(
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (BuildContext context) {
-                        return Chat(
-                          chat: ChatModel(
-                            id: 0,
-                            name: 'New Chat',
-                            history: [],
-                          ),
-                        );
-                      },
-                    ),
+                onTap: () async {
+                  StorageProvider.createChat(
+                    (chat) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (BuildContext context) {
+                            return Chat(chat: chat);
+                          },
+                        ),
+                      );
+                    },
                   );
                 },
                 child: const Text(
@@ -158,14 +168,23 @@ class _ChatListState extends State<ChatList> {
               ),
             ),
             SizedBox(height: 8),
-            ...chats.map(
-              (e) => Column(
-                children: [
-                  chatCard(e),
-                  divider(),
-                ],
-              ),
-            )
+            FutureBuilder(
+              future: StorageProvider.getChats(),
+              builder: (context, snap) {
+                return Column(
+                  children: (snap.data ?? [])
+                      .map(
+                        (e) => Column(
+                          children: [
+                            chatCard(e),
+                            divider(),
+                          ],
+                        ),
+                      )
+                      .toList(),
+                );
+              },
+            ),
           ],
         ),
       ),
